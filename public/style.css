@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Boombox Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background-waves"></div>
+    <div class="outer-container">
+        <div class="inner-container">
+            <header class="header">
+                <h1>Boombox Generator</h1>
+                <p class="made-by">Made By Abiel</p>
+            </header>
+
+            <main class="main-content">
+                <p class="instruction">Create an audio link from text prompt :</p>
+                <form id="downloadForm" class="input-form">
+                    <input type="text" id="urlInput" placeholder="Masukkan URL YouTube, Spotify, dll." class="url-input">
+                    <button type="submit" class="generate-button">Generate Link</button>
+                </form>
+                <div id="result" class="result-display"></div>
+            </main>
+
+            <div class="content-sections">
+                <section class="page-section">
+                    <h2>About</h2>
+                    <p>Boombox Generator adalah alat sederhana yang dibuat untuk mengubah tautan dari berbagai platform streaming (seperti YouTube, Spotify, dan TikTok) menjadi tautan unduhan audio langsung. Alat ini otomatis memproses URL, mengekstrak audio, dan mengunggahnya ke Top4Top.io, sehingga Anda bisa mendapatkan tautan yang siap dibagikan.</p>
+                </section>
+
+                <section class="page-section">
+                    <h2>README</h2>
+                    <p>Cara Penggunaan:</p>
+                    <ol>
+                        <li>Salin tautan dari video atau lagu yang Anda inginkan (misal: tautan YouTube atau Spotify).</li>
+                        <li>Tempel tautan tersebut ke kolom input di atas.</li>
+                        <li>Klik "Generate Link".</li>
+                        <li>Tunggu beberapa saat. Sistem akan memproses tautan dan memberikan Anda tautan unduhan dari Top4Top.</li>
+                    </ol>
+                    <p>Platform yang Didukung: YouTube, Spotify, TikTok, dan SoundCloud.</p>
+                </section>
+                
+                <section class="page-section">
+                    <h2>License</h2>
+                    <p>Proyek ini dilisensikan di bawah Lisensi MIT. Anda bebas menggunakan, memodifikasi, dan mendistribusikan kode ini untuk tujuan komersial maupun non-komersial, selama Anda menyertakan pemberitahuan hak cipta asli dan salinan lisensi ini.</p>
+                </section>
+            </div>
+
+            <div class="social-branding">
+                 <p>Contact: zyskyv@gmail.com</p>
+                 <div class="social-links">
+                    <a href="https://discord.gg/QtkHyW9TWu" target="_blank" class="social-text-link">Discord Server</a>
+                    <a href="https://youtube.com/@abielsamp?si=f7IWkkWiS4BIVY8I" target="_blank" class="social-text-link">YouTube Server</a>
+                 </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

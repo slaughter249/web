@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Boombox Generator</title>
+    <style>
+        :root {
+            --purple-main: #5a12a5;
+            --purple-light: #a55aed;
+            --dark-bg: #0d0d0d;
+            --dark-container: #1a1a1a;
+            --text-color: #e0e0e0;
+            --border-color: #333;
+            --glow-color: #9c27b0;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            position: relative;
+            perspective: 1000px;
+        }
+
+        .background-waves {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #1a1a1a 100%);
+            z-index: -2;
+            overflow: hidden;
+            filter: brightness(0.7);
+            transition: filter 0.5s ease-in-out;
+        }
+
+        .background-waves::before, .background-waves::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            width: 200vw;
+            height: 200vw;
+            background-color: rgba(90, 18, 165, 0.1);
+            border-radius: 45% 55% 55% 45% / 45% 45% 55% 55%;
+            animation: wave 15s linear infinite;
+            z-index: -1;
+        }
+
+        .background-waves::after {
+            background-color: rgba(90, 18, 165, 0.2);
+            opacity: 0.5;
+            animation: wave 10s linear infinite reverse;
+        }
+
+        @keyframes wave {
+            0% { transform: translate(-50%, 0) rotate(0deg); }
+            100% { transform: translate(-50%, -25%) rotate(360deg); }
+        }
+
+        .outer-container {
+            width: 90%;
+            max-width: 650px;
+            padding: 2px;
+            background: linear-gradient(45deg, var(--purple-main), transparent, var(--purple-main));
+            border-radius: 12px;
+            z-index: 1;
+            transform: rotateX(5deg) rotateY(5deg);
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .outer-container:hover {
+            transform: rotateX(0deg) rotateY(0deg) scale(1.02);
+        }
+
+        .inner-container {
+            width: 100%;
+            height: 100%;
+            background-color: var(--dark-container);
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5), 0 0 20px rgba(90, 18, 165, 0.3);
+            text-align: center;
+            transform: translateZ(50px);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 5px;
+            text-shadow: 0 0 10px var(--purple-main);
+        }
+
+        .made-by {
+            font-size: 0.9em;
+            color: #b3b3b3;
+            margin-top: 0;
+        }
+
+        .instruction {
+            color: var(--text-color);
+            font-size: 1.1em;
+            margin-top: 30px;
+        }
+
+        .input-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .url-input {
+            padding: 12px;
+            background-color: #2b2b2b;
+            border: 1px solid var(--purple-main);
+            border-radius: 8px;
+            color: var(--text-color);
+            font-size: 1em;
+            outline: none;
+            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .url-input:focus {
+            border-color: var(--purple-light);
+            transform: scale(1.02);
+            box-shadow: 0 0 15px var(--glow-color);
+        }
+
+        .generate-button {
+            padding: 12px;
+            background-color: var(--purple-main);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .generate-button:hover {
+            background-color: var(--purple-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+        }
+
+        .result-display {
+            margin-top: 20px;
+            font-size: 1.1em;
+            color: #fff;
+            word-wrap: break-word;
+            transform: translateZ(20px);
+            text-shadow: 0 0 8px var(--glow-color);
+        }
+
+        .content-sections {
+            margin-top: 40px;
+        }
+
+        .page-section {
+            margin-bottom: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            text-align: left;
+        }
+
+        .page-section:first-of-type {
+            border-top: none;
+        }
+
+        .page-section h2 {
+            font-size: 1.8em;
+            color: #fff;
+            margin-top: 0;
+            margin-bottom: 10px;
+            text-shadow: 0 0 8px var(--glow-color);
+        }
+
+        .page-section ol {
+            padding-left: 20px;
+            margin-top: 10px;
+        }
+
+        .social-branding {
+            text-align: center;
+            margin-top: 40px;
+            border-top: 1px solid #333;
+            padding-top: 20px;
+            font-size: 0.9em;
+            color: #888;
+        }
+
+        .social-links {
+            margin-top: 10px;
+        }
+
+        .social-links a {
+            color: var(--purple-main);
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: bold;
+            transition: color 0.3s, text-shadow 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--purple-light);
+            text-shadow: 0 0 5px var(--glow-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="background-waves"></div>
+    <div class="outer-container">
+        <div class="inner-container">
+            <header class="header">
+                <h1>Boombox Generator</h1>
+                <p class="made-by">Made By Abiel</p>
+            </header>
+
+            <main class="main-content">
+                <p class="instruction">Create an audio link from text prompt :</p>
+                <form id="downloadForm" class="input-form">
+                    <input type="text" id="urlInput" placeholder="Masukkan URL YouTube, Spotify, dll." class="url-input">
+                    <button type="submit" class="generate-button">Generate Link</button>
+                </form>
+                <div id="result" class="result-display"></div>
+            </main>
+
+            <div class="content-sections">
+                <section class="page-section">
+                    <h2>About</h2>
+                    <p>Boombox Generator adalah alat sederhana yang dibuat untuk mengubah tautan dari berbagai platform streaming (seperti YouTube, Spotify, dan TikTok) menjadi tautan unduhan audio langsung. Alat ini otomatis memproses URL, mengekstrak audio, dan mengunggahnya ke Top4top.io, sehingga Anda bisa mendapatkan tautan yang siap dibagikan.</p>
+                </section>
+
+                <section class="page-section">
+                    <h2>README</h2>
+                    <p>Cara Penggunaan:</p>
+                    <ol>
+                        <li>Salin tautan dari video atau lagu yang Anda inginkan (misal: tautan YouTube atau Spotify).</li>
+                        <li>Tempel tautan tersebut ke kolom input di atas.</li>
+                        <li>Klik "Generate Link".</li>
+                        <li>Tunggu beberapa saat. Sistem akan memproses tautan dan memberikan Anda tautan unduhan dari Top4Top.</li>
+                    </ol>
+                    <p>Platform yang Didukung: YouTube, Spotify, TikTok, dan SoundCloud.</p>
+                </section>
+                
+                <section class="page-section">
+                    <h2>License</h2>
+                    <p>Proyek ini dilisensikan di bawah Lisensi MIT. Anda bebas menggunakan, memodifikasi, dan mendistribusikan kode ini untuk tujuan komersial maupun non-komersial, selama Anda menyertakan pemberitahuan hak cipta asli dan salinan lisensi ini.</p>
+                </section>
+            </div>
+            
+            <div class="social-branding">
+                 <p>Contact: zyskyv@gmail.com</p>
+                 <div class="social-links">
+                    <a href="https://discord.gg/QtkHyW9TWu" target="_blank" class="social-text-link">Discord Server</a>
+                    <a href="https://youtube.com/@abielsamp?si=f7IWkkWiS4BIVY8I" target="_blank" class="social-text-link">YouTube Server</a>
+                 </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
